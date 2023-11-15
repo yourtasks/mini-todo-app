@@ -1,7 +1,9 @@
 "use client";
+import { sortData, validateTodo } from "@/components/libs/functions";
 import { getAllToDos } from "@/components/libs/localStorage";
 import AddNew from "@/components/shared/AddNew";
 import TaskCard from "@/components/tasks/TaskCard";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { v4 } from "uuid";
 
@@ -9,16 +11,9 @@ const Page = () => {
   const [todos, setTodos] = useState(null);
 
   useEffect(() => {
-    const fetchAndSortTodos = async () => {
-      const allTodos = getAllToDos();
-
-      allTodos.sort((a, b) => {
-        const today = new Date().toUTCString();
-        const diffA = Math.abs(today - a.deadline);
-        const diffB = Math.abs(today - b.deadline);
-        console.log(a.deadline);
-        return diffB - diffA;
-      });
+    const fetchAndSortTodos = () => {
+      validateTodo();
+      const allTodos = sortData(getAllToDos());
 
       setTodos(allTodos);
     };
