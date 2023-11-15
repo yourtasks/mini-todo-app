@@ -2,26 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer components {
+  body {
+    @apply bg-white dark:bg-slate-900 text-black dark:text-white;
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  .text {
+    @apply text-slate-800 dark:text-slate-100;
+  }
+
+  .invert-text {
+    @apply text-slate-100 dark:text-slate-800;
+  }
+
+  .bg {
+    @apply bg-slate-100 dark:bg-slate-800;
+  }
+
+  .invert-bg {
+    @apply bg-slate-800 dark:bg-slate-100;
+  }
+
+  .border-color {
+    @apply border-slate-500;
+  }
+
+  .input-field {
+    @apply invert-bg bg-opacity-10 dark:bg-opacity-10 py-2 rounded-md outline-none px-4 ring-2 ring-transparent focus:ring-blue-500 transition font-medium selection:bg-blue-500 disabled:border-2 disabled:cursor-not-allowed border-slate-500/30 disabled:bg-transparent disabled:text-slate-500
+  }
+
+
+  .click {
+@apply invert-bg bg-opacity-0 dark:bg-opacity-0 active:bg-opacity-10 dark:active:bg-opacity-10 md:hover:bg-opacity-20
+transition
+  }
+
+  .button {
+    @apply bg-blue-500 py-2 disabled:bg-slate-500 disabled:text-slate-400 text-white rounded-md font-semibold disabled:cursor-not-allowed
+  }
 }
