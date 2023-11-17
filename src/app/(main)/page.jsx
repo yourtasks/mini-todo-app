@@ -9,6 +9,7 @@ import { v4 } from "uuid";
 
 const Page = () => {
   const [todos, setTodos] = useState(null);
+  const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
     const fetchAndSortTodos = () => {
@@ -19,18 +20,19 @@ const Page = () => {
     };
 
     // Only fetch and sort todos if they are not already loaded
-    if (!todos) {
+    if (!todos || updated) {
       fetchAndSortTodos();
+      setUpdated(false);
     }
-  }, [todos]);
-
-  console.log(todos);
+  }, [todos, updated]);
 
   return (
     <div className="p-4 flex flex-col gap-y-2">
       {todos ? (
         todos.length > 0 ? (
-          todos.map((todo) => <TaskCard key={v4()} data={todo} />)
+          todos.map((todo) => (
+            <TaskCard key={v4()} data={todo} setUpdated={setUpdated} />
+          ))
         ) : (
           <div>You have no upcoming task stored</div>
         )
